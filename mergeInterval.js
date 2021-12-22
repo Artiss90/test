@@ -5,6 +5,10 @@ let input3 =[[8,10],[2,6],[1,3],[15,18]] // [[1,6],[8,10][15,18]]
 let input2 =[[1,4],[4,5]] // [[1,5]]
 
 function mergeInterval(intervals) {
+    if(intervals.length < 2){
+        return intervals
+    }
+    
     const sortIntervals = intervals.sort((a,b) => a[0]-b[0])
     
     return sortIntervals.reduce((acc, [start, end]) => {
