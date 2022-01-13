@@ -1,28 +1,34 @@
 "use strict";
 
-function binarySearchRecursively(arr, query) {
-    let startIndex = 0;
-    let endIndex = arr.length - 1;
-    while ( startIndex <= endIndex){
-        let mid = Math.floor((startIndex + endIndex) / 2);
-        const guess = arr[mid];
-        if(guess === query){
-            return guess
-        }
-        if(guess > query){
-            endIndex = mid - 1
-        }
-        if(guess < query){
-            startIndex = mid + 1
-        }
+const createArr = ( n ) => Array.from({length: n}, (item, index) => index + 1);
+
+const arrExample = createArr(10000)
+
+function binarySearchRecursively(arr, query, startIndex = 0, endIndex = arr.length - 1) {
+    if ( startIndex > endIndex){
+        return null
     }
-    return null
+
+    const mid = Math.floor((startIndex + endIndex) / 2);
+    const guess = arr[mid];
+
+    if(guess === query){
+        return guess
+    }
+    if(guess > query){
+        endIndex = mid - 1
+        return binarySearchRecursively(arr, query, startIndex, endIndex)
+    }
+    if(guess < query){
+        startIndex = mid + 1
+        return binarySearchRecursively(arr, query, startIndex, endIndex)
+    }
 } 
 
 
-console.log(binarySearchRecursively([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 7));
-console.log(binarySearchRecursively([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 8));
-console.log(binarySearchRecursively([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 6));
-console.log(binarySearchRecursively([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 4));
-console.log(binarySearchRecursively([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], -1));
+console.log(binarySearchRecursively(arrExample, 7));
+console.log(binarySearchRecursively(arrExample, 8));
+console.log(binarySearchRecursively(arrExample, 6));
+console.log(binarySearchRecursively(arrExample, 4));
+console.log(binarySearchRecursively(arrExample, -1));
 // console.log(([1, 2, 3, 4, 5].find()));
