@@ -1,4 +1,8 @@
 function encodeRailFenceCipher(string, numberRails) {
+  if (numberRails < 2 || string.length < 2) {
+    return string;
+  }
+
   let indexRail = 0;
   const increment = 1;
   const decrement = -1;
@@ -22,12 +26,24 @@ function encodeRailFenceCipher(string, numberRails) {
   return codeRails.map((letters) => letters.join('')).join('');
 }
 
+// ! peeped solution decode
 function decodeRailFenceCipher(string, numberRails) {
-    let indexRail = 0;
-    const increment = 1;
-    const decrement = -1;
-    let currentOperation = increment;
-    const letters = string.split('');
+  let step;
+  let maxStep = (numberRails - 1) * 2;
+  let decoded = [];
+  let seqIndex = 0;
+  let stepIndex = 0;
+  for (let i = numberRails - 1; i >= 0; i--) {
+    step = i * 2 || maxStep;
+    stepIndex = numberRails - 1 - i;
+    while (stepIndex < string.length) {
+      decoded[stepIndex] = string[seqIndex];
+      stepIndex += step;
+      seqIndex += 1;
+      step = maxStep - step || maxStep;
+    }
+  }
+  return decoded.join('');
 }
 
 // TODO Create two functions to encode and then decode a string using the Rail Fence Cipher. This cipher is used to encode a string by placing each character successively in a diagonal along a set of "rails". First start off moving diagonally and down. When you reach the bottom, reverse direction and move diagonally and up until you reach the top rail. Continue until you reach the end of the string. Each "rail" is then read left to right to derive the encoded string.
@@ -49,5 +65,9 @@ function decodeRailFenceCipher(string, numberRails) {
 // Note that the example above excludes the punctuation and spaces just for simplicity. There are, however, tests that include punctuation. Don't filter out punctuation as they are a part of the string.
 
 console.log(encodeRailFenceCipher('Hello, World!', 3));
+console.log(encodeRailFenceCipher('Hello, World!', 0));
+console.log(encodeRailFenceCipher('', 3));
 console.log('Hoo!el,Wrdl l');
 console.log(decodeRailFenceCipher('Hoo!el,Wrdl l', 3));
+console.log(decodeRailFenceCipher('Hoo!el,Wrdl l', 0));
+console.log(decodeRailFenceCipher('', 3));
