@@ -1,11 +1,16 @@
 function getCountWeekday(date) {
   const DAY_IN_MS = 86400000;
+  const finderDay = 3;
 
   const givenDate = new Date(date);
+  const differenceInTimeByDay = givenDate.getDay() - finderDay;
+  console.log('🚀 ~ 7 ~ getCountWeekday ~ differenceInTimeByDay', differenceInTimeByDay);
   const now = new Date();
+  const differenceInTimeByDayNow = now.getDay() - finderDay;
+  console.log('🚀 ~ 10 ~ getCountWeekday ~ differenceInTimeByDayNow', differenceInTimeByDayNow);
   const differenceInTime = now - givenDate;
   const countDay = Math.floor(differenceInTime / DAY_IN_MS);
-  console.log('🚀 ~ file: getCountWeekday.js ~ line 7 ~ getCountWeekday ~ countDay', countDay);
+  console.log('🚀 ~ 13 ~ getCountWeekday ~ countDay', countDay);
 
   let countWeekday = 0;
 
